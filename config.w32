@@ -1,0 +1,13 @@
+// $Id$
+// vim:ft=javascript
+
+// If your extension references something external, use ARG_WITH
+// ARG_WITH("psak", "for psak support", "no");
+
+// Otherwise, use ARG_ENABLE
+// ARG_ENABLE("psak", "enable psak support", "no");
+
+if (PHP_PSAK != "no") {
+	EXTENSION("psak", "psak.c");
+}
+
