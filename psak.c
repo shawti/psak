@@ -54,18 +54,42 @@ PHP_INI_END()
    Return a string to confirm that the module is compiled in */
 PHP_FUNCTION(rc4)
 {
-	char *key = NULL;
-	char *str = NULL;
-	int key_len, str_len, len;
-	char *strg;
-	int arg_count = ZEND_NUM_ARGS();
-
-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &key, &key_len, &str, &str_len) == FAILURE) {
+	char *pwd, *data;
+	int pwd_len, data_len;
+	
+	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ss", &pwd, &pwd_len, &data, &data_len) == FAILURE)
 		return;
-	}
 
-	len = spprintf(&strg, 0, "%s:%s:%d:%d", key, str, key_len, str_len);
-	RETURN_STRINGL(strg, len, 0);
+	char strg[data_len];
+	int key[256], box[256];
+	
+	for (int i = 0; i < 256; i++)
+    {
+        key[i] = pwd[i % pwd_len];
+        box[i] = i;
+    }
+    int tmp = 0, j = 0;
+    for (int i = 0; i < 256; i++)
+    {
+        j = (j + box[i] + key[i]) % 256;
+        tmp = box[i];
+        box[i] = box[j];
+        box[j] = tmp;
+    }
+    j = 0;
+    int a = 0, k = 0;
+    for (int i = 0; i < data_len; i++)
+    {
+        a = (a + 1) % 256;
+        j = (j + box[a]) % 256;
+        tmp = box[a];
+        box[a] = box[j];
+        box[j] = tmp;
+        k = box[((box[a] + box[j]) % 256)];
+        int ord = data[i];
+        strg[i] = ord ^ k; 
+    }
+	RETURN_STRINGL(strg, data_len, 1);
 }
 /* }}} */
 /* The previous line is meant for vim and emacs, so it can correctly fold and 
@@ -170,11 +194,3 @@ zend_module_entry psak_module_entry = {
 ZEND_GET_MODULE(psak)
 #endif
 
-/*
- * Local variables:
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- * vim600: noet sw=4 ts=4 fdm=marker
- * vim<600: noet sw=4 ts=4
- */

@@ -24,7 +24,7 @@
 extern zend_module_entry psak_module_entry;
 #define phpext_psak_ptr &psak_module_entry
 
-#define PHP_PSAK_VERSION "0.1.0" /* Replace with version number for your extension */
+#define PHP_PSAK_VERSION "0.1.0"
 
 #ifdef PHP_WIN32
 #	define PHP_PSAK_API __declspec(dllexport)
@@ -67,11 +67,3 @@ ZEND_END_MODULE_GLOBALS(psak)
 #endif	/* PHP_PSAK_H */
 
 
-/*
- * Local variables:
- * tab-width: 4
- * c-basic-offset: 4
- * End:
- * vim600: noet sw=4 ts=4 fdm=marker
- * vim<600: noet sw=4 ts=4
- */
