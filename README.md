@@ -5,12 +5,12 @@ psak
 安装方法：
 ###### git clone https://github.com/xia-hou/psak.git
 =============
-cd pask
+###### cd pask
 =============
-phpize
+###### phpize
 =============
-./configure
+###### ./configure
 =============
-make && make install
+######make && make install
 =============
-之后在php.ini里面加入 extension=/pwd/psak.so
+###### 之后在php.ini里面加入 extension=/pwd/psak.so
