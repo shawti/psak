@@ -3,6 +3,7 @@ psak
 封装常用的PHP工具到扩展中，方便日常开发使用
 
 安装方法：
+
 git clone https://github.com/xia-hou/psak.git
 
 cd pask
