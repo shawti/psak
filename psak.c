@@ -62,14 +62,14 @@ PHP_FUNCTION(rc4)
 
 	char strg[data_len];
 	int key[256], box[256];
-	
-	for (int i = 0; i < 256; i++)
+	int i, tmp = 0, j = 0;
+	for (i = 0; i < 256; i++)
     {
         key[i] = pwd[i % pwd_len];
         box[i] = i;
     }
-    int tmp = 0, j = 0;
-    for (int i = 0; i < 256; i++)
+
+    for (i = 0; i < 256; i++)
     {
         j = (j + box[i] + key[i]) % 256;
         tmp = box[i];
@@ -78,7 +78,7 @@ PHP_FUNCTION(rc4)
     }
     j = 0;
     int a = 0, k = 0;
-    for (int i = 0; i < data_len; i++)
+    for (i = 0; i < data_len; i++)
     {
         a = (a + 1) % 256;
         j = (j + box[a]) % 256;
